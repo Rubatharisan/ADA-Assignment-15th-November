@@ -3,7 +3,7 @@ Give an O(N) algorithm to rearrange the list so that all false elements precede 
 You may use only constant extra space.
 
 We will be using the Counting sort algorithm to solve our problem. We run through the array to count all the false elements.
-At next, we are going to make all elements from index 0 to our false elements count to false, and the rest as true.
+Hereafter, we define new elements with false and true.
 
 Our results:
 
