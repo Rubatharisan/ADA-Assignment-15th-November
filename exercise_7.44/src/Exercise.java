@@ -19,12 +19,20 @@ public class Exercise {
         myBooleanArray.makeBooleanArray(10);
 
         // Lets print our boolean array.
+        System.out.println("###");
+        System.out.println("# Our newly created boolean array");
+        System.out.println("##");
         myBooleanArray.printArray();
+
+        System.out.println();
 
         // Lets sort our array - so false elements comes first.
         myBooleanArray.sort();
 
         // Lets print our sorted array
+        System.out.println("###");
+        System.out.println("# Our sorted boolean array");
+        System.out.println("##");
         myBooleanArray.printArray();
 
     }
@@ -57,7 +65,7 @@ public class Exercise {
     private void printArray(){
 
         // Lets print our boolean array
-        System.out.println(Arrays.toString(myBooleanArray));
+        System.out.println("=> " + Arrays.toString(myBooleanArray));
 
     }
 
@@ -78,7 +86,7 @@ public class Exercise {
             if(i < falseCounter){
                 myBooleanArray[i] = false;
             } else {
-                // The rest will be true elements. 
+                // The rest will be true elements.
                 myBooleanArray[i] = true;
             }
         }

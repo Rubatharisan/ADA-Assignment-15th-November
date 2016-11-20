@@ -1,0 +1,17 @@
+7.44 Suppose you have an array of N elements containing only two distinct keys, true and false.
+Give an O(N) algorithm to rearrange the list so that all false elements precede the true elements.
+You may use only constant extra space.
+
+We will be using the Counting sort algorithm to solve our problem.
+
+Our results:
+
+###
+# Our newly created boolean array
+##
+=> [true, true, true, false, false, false, false, false, true, false]
+
+###
+# Our sorted boolean array
+##
+=> [false, false, false, false, false, false, true, true, true, true]
