@@ -15,8 +15,7 @@ a. Give an O(N^2) algorithm to solve this problem.
 
 b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items first. After that is done, you can solve the problem in linear time). 
 
-    We can start out sorting the array with the help of heap sort, thereafter we can use a binary search to find the complementary integer.
-    For an example, lets say we have an sorted array with following numbers A:=[1, 3, 4, 6, 7, 10]
+    Let's say we have an sorted array with following numbers A:=[1, 3, 4, 6, 7, 10]
     Now lets say our K will be 10, so with A[0] = 1, the complementary has to be K-A[0] = 9, so we should look for the element     containing the value 9. It doesn't exist. So lets try with A[1] = 3, K-A[1] = 7, which exists at A[4]. Now if we sum up       A[1] + A[4] = 10 = K.
 
     Conclusion, start out with a heap sort, then next a binary search.
