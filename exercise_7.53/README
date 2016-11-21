@@ -1,4 +1,4 @@
-7.53 We are given an array that contains N numbers. We want to determine if there are two numbers whose sum equals a given number K. For instance, if the input is 8, 4, 1, 6 and K is 1, then the answer is yes (4 and 6). A number may be twice.
+7.53 We are given an array that contains N numbers. We want to determine if there are two numbers whose sum equals a given number K. For instance, if the input is 8, 4, 1, 6 and K is 10, then the answer is yes (4 and 6). A number may be used twice.
 
 a. Give an O(N^2) algorithm to solve this problem.
     A nested for loop should suffice. - Commonly known as the "Brute force" method.
