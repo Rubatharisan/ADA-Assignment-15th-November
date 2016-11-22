@@ -112,7 +112,7 @@ public class Tester {
     public static void endTimer(){
         endTime = System.nanoTime();
         long duration = (endTime - startTime);
-        System.out.println("[Time] Execution took: " + (duration) + "ns (" + (duration/1000000) + "ms)");
+        System.out.println("[Time] Execution took: " + (duration) + " ns (" + (duration/1000000) + " ms)");
     }
 
 

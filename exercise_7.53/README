@@ -13,7 +13,7 @@ a. Give an O(N^2) algorithm to solve this problem.
      [Nested for-loop] We are looking for a pair that gives out the sum: 7
      Pair found: 0 + 7 = 7
      Pair found: 0 + 7 = 7
-     [Time] Execution took: 125666ns (0ms)
+     [Time] Execution took: 125666 ns (0 ms)
 
      ** Using a random values filled array: [4, 14, 14, 16, 7, 15, 14, 0, 7, 6]
      Initial array: [4, 14, 14, 16, 7, 15, 14, 0, 7, 6]
@@ -21,7 +21,7 @@ a. Give an O(N^2) algorithm to solve this problem.
      [Nested for-loop] We are looking for a pair that gives out the sum: 7
      Pair found: 7 + 0 = 7
      Pair found: 0 + 7 = 7
-     [Time] Execution took: 86183ns (0ms)
+     [Time] Execution took: 86183 ns (0 ms)
 
 
 b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items first. After that is done, you can solve the problem in linear time). 
@@ -43,13 +43,13 @@ b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items fir
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
-    [Time] Execution took: 542715ns (0ms)
+    [Time] Execution took: 542715 ns (0 ms)
 
     [Custom Search] We are looking for a pair that gives out the sum: 7
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
-    [Time] Execution took: 113821ns (0ms)
+    [Time] Execution took: 113821 ns (0 ms)
 
     ** Using a random filled array with values:
 
@@ -58,9 +58,9 @@ b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items fir
 
     [Binary Search] We are looking for a pair that gives out the sum: 7
     Pair found: 0 + 7 = 7
-    [Time] Execution took: 81693ns (0ms)
+    [Time] Execution took: 81693 ns (0 ms)
 
     [Custom Search] We are looking for a pair that gives out the sum: 7
     Pair found: 0 + 7 = 7
-    [Time] Execution took: 58170ns (0ms)
+    [Time] Execution took: 58170 ns (0 ms)
 
