@@ -1,0 +1,26 @@
+###
+# 7.38 Write a program that reads N points in a plane and outputs any group of four or more colinear points (i.e., points on the same line).
+# The obvious brute-force algorithm requires O(N4) time. However, there is a better algorithm that makes use of sorting and runs in O(N^2 log N) time.
+##
+
+In order to find colinear points to a given point P, it is enough to find a set of points having the same degrees to P.
+
+We start by choosing point P. Then we compute the degrees between P and every other point in the set.
+Then we can sort the array of degrees with the time complexity of O(nlog(n)).
+We can traverse the sorted array trying to find groups of 3 or more points with same angle degrees to P.
+
+If we find any such a group, we can output it together with P as a group of colinear points.
+
+We do it for every possible choice of P, until a group is found.
+
+###
+# Console output
+##
+
+P=  X: 2, Y: 1
+===
+Q1= X: 7, Y: 6
+Q2= X: 6, Y: 5
+Q3= X: 5, Y: 4
+Q4= X: 4, Y: 3
+Q5= X: 3, Y: 2
