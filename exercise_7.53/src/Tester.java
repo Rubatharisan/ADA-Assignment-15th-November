@@ -32,7 +32,7 @@ public class Tester {
         endTimer();
 
         // Make an an array with random numbers, p1 = size, p2 = max value of a integer in randomInt.
-        int[] myRandomArray = exercise.makeIntArray(1000, 1000);
+        int[] myRandomArray = exercise.makeIntArray(100, 100);
 
         // Let's print the array.
         System.out.println();

@@ -92,7 +92,7 @@ public class ExerciseA {
 
     public void printText(){
         System.out.println("###");
-        System.out.println("# A) Give an O(N^) algorithm to solve the problem");
+        System.out.println("# A) Give an O(N^2) algorithm to solve the problem");
         System.out.println("##");
 
     }

@@ -25,38 +25,51 @@ a. Give an O(N^2) algorithm to solve this problem.
 
 
 
-
-
 b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items first. After that is done, you can solve the problem in linear time). 
 
-    We will first sort the array with java's sort algorithm, hereafter compare array[start] with array[end].
+    We will first sort the array with java's sort algorithm.
+    After the sorting, we considered two different algorithms, one being a binary search and another being a custom search algorithm, as described below.
 
-    { We will decrement array[end] every time that the complementary of array[start] is not found, when hit is found }
+    We use two pointers, one in the start of the array and one in the end of the array. We take a number a number, pointed by start pointer and try to find an complementary number in the end of the array. We move the end pointer towards the start until the number is found, or the sum of the numbers is smaller than given k. Then we increment the start pointer by one, and continue like this.
+    The complexity of the algorithm is O(N), because it is a sorted array and we require the starting pointer always being smaller than the end pointer.
+
+    The implementation of the custom search follows as:
+    while(start is less than end){
+        findNumber = sum-myArray[start]
+        boolean found = false
+            while(start < end & found == false & myArray[end] >= findNumber){
+                if(myArray(end) == findNumber){
+                    found = true
+                } else {
+                    end--; // decrement the end
+                }
+
+            }
+            start++; // increment the start
+    }
 
 
     ###
     # Console output
     ##
 
-    ** Using a predefined array with values: [1, 0, 3, 9, 3, 5, 0, 7, 8, 0]
-    Initial array: [1, 0, 3, 9, 3, 5, 0, 7, 8, 0]
+    ** Using a predefined array with values: [1, 0, 3, 9, 3, 5, 0, 7, 8]
+    Initial array: [1, 0, 3, 9, 3, 5, 0, 7, 8]
     ... sorting the array
     [Time] Execution took: 237952 ns (0 ms)
-    Sorted array: [0, 0, 0, 1, 3, 3, 5, 7, 8, 9]
+    Sorted array: [0, 0, 1, 3, 3, 5, 7, 8, 9]
 
     [Binary Search] We are looking for a pair that gives out the sum: 7
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
-    Pair found: 0 + 7 = 7
-    [Time] Execution took: 561267 ns (0 ms)
+    [Time] Execution took: 852084 ns (0 ms)
 
     [Custom Search] We are looking for a pair that gives out the sum: 7
     Pair found: 0 + 7 = 7
     Pair found: 0 + 7 = 7
-    Pair found: 0 + 7 = 7
-    [Time] Execution took: 118211 ns (0 ms)
+    [Time] Execution took: 217167 ns (0 ms)
 
-    ** Using a random filled array with values:
+    ** Using a random values filled array:
 
     Initial array: [2, 9, 7, 4, 4, 18, 8, 18, 15, 3]
     ... sorting the array
@@ -76,74 +89,81 @@ c. Code both solutions and compare the running times of your algorithms.
 
     Comparisons with 10 elements:
 
-        Our predefined array: [1, 0, 3, 9, 3, 5, 0, 7, 8, 0]
+        We are looking for the sum of: 7
 
-	    With a nested for loop, the running time for a predefined array was 120705 ns.
+        Our predefined array: [1, 0, 3, 9, 3, 5, 0, 7, 8]
 
-	    Sorting the array had the running time of 237952 ns;
+        With a nested for loop, the running time for a predefined array was 120705 ns.
 
-	    With a binary search after a sorted array, the running time was 561267 ns.
+        Sorting the array had the running time of 237952 ns;
 
-	    With a custom search after a sorted array, the running time was 118211 ns.
+        With a binary search after a sorted array, the running time was 852084 ns.
 
-	    Binary search + sorting time = 561267 + 237952 = 799219 ns
+        With a custom search after a sorted array, the running time was 217167 ns.
 
-	    Custom search + sorting time = 118211 + 237952 = 356163 ns
+        Binary search + sorting time = 852084 + 237952 = 1090036 ns
 
-	    Nested for loop vs Binary search + sort
-	        120705 - 799219 = -678514 ns, this concludes that binary search was 678514 ns slower than the nested for loop.
+        Custom search + sorting time = 217167 + 237952 = 455119 ns
 
-	    Nested for loop vs Custom search + sort
-	    	120705 - 356163 = -235458 ns, this concludes that custom search was 235458 ns slower than the nested for loop.
+        Nested for loop vs Binary Search + sort
+            120705 - 1090036 = -969331 ns, this concludes that binary search was 969331 ns slower than the nested for loop.
+
+        Nested for loop vs Custom search + sort
+            120705 - 455119 = -334414 ns, this concludes that binary search was 334414 ns slower than the nested for loop.
+
 
 
     Comparisons with 100 elements:
 
-    	Our predefined array: [0, 1, 1, 2, 4, 4, 5, 8, 9, 9, 10, 11, 11, 13, 13, 13, 13, 16, 16, 17, 17, 19, 20, 20, 20, 22, 22, 25, 25, 25, 26, 29, 29, 32, 32, 33, 34, 35, 36, 36, 36, 37, 40, 42, 43, 44, 46, 46, 47, 50, 53, 56, 57, 60, 60, 61, 62, 65, 66, 67, 67, 68, 70, 70, 71, 74, 74, 75, 76, 77, 77, 78, 78, 79, 79, 80, 80, 80, 81, 84, 85, 85, 85, 86, 86, 87, 91, 91, 92, 93, 93, 93, 93, 94, 95, 96, 98, 98, 98, 99]
+        We are looking for the sum of: 7
 
-	    With a nested for loop, the running time for a predefined array was 267355 ns.
+    	Our predefined array: [0, 1, 2, 3, 5, 6, 8, 9, 9, 10, 11, 11, 14, 14, 15, 16, 17, 18, 18, 20, 23, 23, 25, 26, 26, 27, 28, 30, 30, 31, 33, 34, 34, 35, 35, 36, 36, 39, 39, 40, 42, 42, 43, 44, 44, 45, 45, 46, 51, 53, 53, 54, 55, 57, 57, 59, 60, 61, 61, 63, 64, 65, 66, 66, 66, 67, 69, 71, 71, 72, 73, 75, 76, 77, 77, 78, 78, 79, 80, 80, 81, 82, 82, 82, 83, 84, 84, 86, 86, 86, 88, 89, 93, 93, 93, 95, 95, 97, 97, 99]
 
-	    Sorting the array had the running time of 40359 ns;
+	    With a nested for loop, the running time for a predefined array was 298326 ns.
 
-	    With a binary search after a sorted array, the running time was 65260 ns.
+	    Sorting the array had the running time of 43823 ns;
 
-	    With a custom search after a sorted array, the running time was 53152 ns.
+	    With a binary search after a sorted array, the running time was 96207 ns.
 
-	    Binary search + sorting time = 65260 + 40359 = 105619 ns
+	    With a custom search after a sorted array, the running time was 94797 ns.
 
-	    Custom search + sorting time = 53152 + 40359 = 93511 ns
+	    Binary search + sorting time = 96207 + 43823 = 140030 ns
+
+	    Custom search + sorting time = 94797 + 43823 = 138620 ns
 
 	    Nested for loop vs Binary search + sort
-	        267355 - 105619 = 161736 ns, this concludes that binary search was 161736 ns faster than the nested for loop.
+	        298326 - 140030 = 158296 ns, this concludes that binary search was 158296 ns faster than the nested for loop.
 
 	    Nested for loop vs Custom search + sort
-	    	267355 - 93511 = 173844 ns, this concludes that custom search was 173844 ns faster than the nested for loop.
+	    	298326 - 138620 = 159706 ns, this concludes that custom search was 159706 ns faster than the nested for loop.
 
 
     Comparisons with 1000 elements:
 
-        Our predefined array: [0, 0, 0, 1, 1, 1, 4, 5, 5, 6, 6, 7, 8, 8, 8, 9, 10, 12, 13, 14, 16, 16, 18, 19, 19, 21, 22, 24, 25, 26, 27, 27, 28, 29, 30, 31, 31, 34, 34, 34, 35, 37, 38, 40, 41, 42, 45, 45, 46, 47, 47, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 58, 59, 60, 61, 61, 62, 62, 62, 63, 63, 64, 64, 64, 66, 67, 68, 68, 68, 69, 70, 70, 70, 71, 72, 72, 72, 74, 75, 77, 78, 78, 79, 80, 80, 80, 80, 81, 83, 89, 90, 90, 90, 92, 93, 94, 96, 96, 97, 100, 101, 102, 103, 104, 105, 105, 107, 108, 109, 110, 111, 111, 113, 114, 115, 116, 116, 117, 117, 117, 118, 118, 118, 119, 119, 122, 123, 126, 127, 128, 128, 129, 130, 134, 135, 135, 136, 137, 138, 139, 139, 139, 140, 141, 142, 143, 144, 144, 146, 147, 148, 149, 149, 152, 153, 156, 156, 159, 161, 162, 163, 163, 164, 167, 167, 168, 168, 169, 171, 172, 173, 173, 175, 176, 177, 177, 177, 177, 178, 178, 178, 179, 180, 182, 184, 184, 184, 185, 185, 186, 189, 190, 191, 191, 193, 193, 194, 195, 195, 197, 197, 199, 201, 202, 202, 204, 205, 205, 207, 207, 211, 211, 213, 214, 214, 216, 219, 219, 219, 220, 221, 224, 225, 227, 229, 230, 231, 232, 233, 233, 233, 237, 237, 238, 241, 242, 242, 242, 247, 247, 247, 249, 249, 256, 256, 256, 258, 261, 262, 264, 264, 265, 265, 266, 266, 267, 269, 272, 272, 272, 273, 274, 275, 276, 276, 276, 276, 277, 278, 281, 281, 282, 284, 284, 285, 286, 287, 288, 291, 291, 292, 293, 293, 298, 300, 300, 303, 303, 304, 305, 305, 306, 307, 308, 309, 309, 310, 311, 311, 312, 315, 315, 317, 317, 320, 321, 322, 325, 326, 326, 327, 328, 328, 328, 330, 330, 332, 332, 333, 333, 333, 333, 334, 334, 334, 335, 336, 337, 337, 337, 339, 340, 341, 341, 342, 343, 343, 345, 346, 347, 347, 347, 348, 350, 350, 351, 352, 353, 356, 357, 359, 359, 361, 361, 362, 362, 363, 365, 365, 366, 368, 368, 369, 371, 373, 374, 375, 375, 375, 376, 378, 379, 379, 381, 381, 382, 382, 382, 388, 389, 389, 391, 391, 393, 394, 395, 395, 396, 396, 396, 397, 397, 397, 397, 399, 400, 401, 402, 404, 405, 405, 405, 409, 409, 409, 412, 412, 412, 415, 415, 415, 416, 416, 417, 419, 419, 420, 421, 421, 423, 423, 424, 424, 426, 428, 429, 429, 430, 431, 431, 435, 436, 437, 438, 439, 442, 443, 443, 443, 444, 446, 447, 447, 447, 448, 449, 449, 451, 451, 451, 451, 451, 452, 452, 453, 453, 454, 454, 454, 456, 456, 457, 458, 458, 460, 461, 463, 464, 464, 464, 465, 466, 468, 470, 470, 471, 473, 476, 476, 477, 477, 478, 480, 480, 482, 482, 483, 485, 486, 486, 487, 488, 489, 489, 490, 490, 491, 492, 492, 495, 495, 495, 496, 496, 502, 502, 502, 503, 505, 506, 508, 510, 511, 516, 516, 517, 518, 518, 518, 518, 518, 520, 522, 523, 523, 525, 526, 526, 527, 527, 527, 528, 528, 529, 529, 531, 533, 533, 536, 538, 538, 542, 543, 544, 545, 546, 547, 547, 548, 549, 550, 551, 553, 556, 559, 559, 559, 561, 562, 563, 568, 570, 571, 572, 574, 574, 575, 575, 575, 576, 576, 576, 578, 580, 581, 582, 584, 585, 587, 588, 589, 589, 589, 590, 591, 591, 592, 592, 593, 593, 594, 595, 596, 596, 596, 598, 599, 600, 600, 601, 603, 605, 608, 610, 610, 611, 611, 611, 612, 613, 614, 615, 616, 616, 616, 616, 617, 619, 621, 622, 622, 623, 626, 626, 626, 627, 628, 629, 630, 631, 633, 633, 634, 636, 636, 639, 640, 640, 642, 643, 644, 648, 650, 651, 654, 656, 656, 657, 657, 658, 658, 660, 661, 663, 663, 666, 667, 668, 669, 672, 674, 675, 675, 676, 676, 676, 676, 679, 680, 681, 682, 683, 683, 684, 685, 686, 687, 688, 689, 690, 690, 691, 691, 692, 693, 693, 694, 697, 698, 698, 700, 700, 703, 704, 707, 707, 707, 708, 709, 709, 710, 710, 710, 711, 712, 717, 718, 718, 719, 719, 722, 726, 727, 728, 729, 730, 731, 731, 731, 731, 732, 732, 734, 735, 736, 737, 737, 738, 738, 739, 741, 745, 745, 747, 748, 748, 748, 748, 749, 750, 751, 752, 752, 753, 753, 753, 755, 755, 756, 756, 756, 756, 757, 757, 758, 760, 760, 762, 762, 763, 763, 764, 764, 764, 767, 770, 773, 773, 773, 774, 774, 777, 778, 778, 779, 784, 785, 786, 787, 787, 788, 789, 789, 789, 790, 791, 791, 793, 793, 794, 795, 795, 798, 800, 800, 802, 802, 805, 805, 806, 807, 809, 810, 812, 812, 814, 816, 817, 818, 818, 818, 819, 821, 824, 824, 825, 825, 826, 826, 827, 829, 830, 832, 834, 835, 836, 836, 836, 836, 839, 840, 841, 841, 841, 842, 843, 846, 848, 848, 849, 850, 851, 852, 853, 853, 854, 854, 854, 855, 856, 859, 862, 864, 864, 865, 865, 866, 866, 867, 867, 867, 867, 868, 869, 869, 870, 871, 871, 872, 874, 875, 875, 876, 876, 876, 877, 877, 879, 880, 881, 882, 883, 884, 885, 885, 887, 887, 887, 889, 889, 891, 892, 894, 894, 894, 895, 896, 896, 898, 898, 898, 901, 903, 905, 907, 909, 913, 914, 917, 918, 919, 921, 921, 923, 924, 925, 926, 926, 926, 927, 929, 929, 930, 932, 932, 933, 933, 934, 936, 936, 938, 938, 940, 942, 942, 942, 944, 944, 945, 945, 946, 946, 947, 948, 950, 953, 954, 955, 958, 958, 958, 958, 959, 960, 961, 961, 962, 967, 967, 968, 970, 971, 971, 972, 972, 973, 974, 974, 975, 975, 976, 979, 979, 980, 982, 984, 988, 990, 990, 991, 992, 993, 993, 995, 997, 998, 998, 999, 999]
+        We are looking for the sum of: 7
 
-	    With a nested for loop, the running time for a predefined array was 9658432 ns.
+        Our predefined array: [1, 3, 3, 4, 5, 5, 5, 7, 10, 10, 11, 12, 13, 15, 17, 18, 19, 19, 19, 19, 20, 20, 20, 21, 21, 23, 23, 24, 25, 26, 27, 27, 27, 27, 27, 28, 33, 35, 36, 36, 40, 40, 41, 42, 42, 42, 44, 47, 48, 48, 48, 49, 49, 49, 50, 50, 52, 52, 53, 53, 54, 54, 55, 59, 61, 62, 62, 63, 63, 65, 66, 66, 68, 68, 71, 72, 73, 74, 75, 75, 75, 77, 78, 85, 87, 87, 87, 88, 88, 90, 90, 90, 91, 91, 91, 93, 93, 94, 94, 96, 96, 97, 101, 101, 102, 103, 103, 104, 105, 105, 107, 107, 108, 111, 111, 112, 113, 113, 114, 114, 114, 114, 116, 117, 117, 119, 119, 125, 126, 127, 127, 128, 130, 131, 131, 132, 133, 134, 136, 137, 137, 137, 137, 139, 139, 140, 140, 141, 142, 142, 143, 144, 144, 145, 145, 147, 147, 148, 149, 152, 152, 154, 155, 157, 158, 159, 161, 163, 166, 166, 168, 169, 170, 172, 172, 173, 175, 176, 176, 177, 178, 179, 179, 181, 183, 183, 184, 184, 184, 185, 186, 186, 186, 187, 190, 190, 191, 191, 191, 193, 193, 194, 194, 197, 197, 197, 198, 198, 199, 199, 199, 200, 202, 204, 206, 206, 209, 209, 210, 213, 213, 214, 214, 217, 217, 217, 218, 219, 220, 220, 220, 221, 223, 224, 226, 229, 231, 233, 233, 233, 234, 235, 238, 238, 238, 242, 245, 247, 247, 248, 252, 253, 253, 253, 253, 254, 254, 254, 255, 256, 256, 258, 260, 260, 261, 263, 263, 263, 264, 265, 268, 269, 270, 270, 271, 271, 271, 272, 273, 274, 274, 277, 278, 278, 280, 282, 282, 282, 282, 284, 287, 287, 289, 290, 291, 291, 292, 293, 295, 296, 296, 298, 299, 300, 300, 300, 301, 302, 302, 303, 303, 304, 305, 306, 307, 307, 309, 310, 310, 310, 310, 311, 312, 314, 317, 317, 319, 323, 323, 324, 325, 325, 326, 326, 326, 329, 331, 332, 332, 332, 333, 333, 334, 334, 334, 336, 336, 336, 338, 338, 338, 339, 339, 340, 342, 342, 342, 342, 344, 344, 346, 350, 350, 350, 352, 355, 355, 357, 359, 359, 360, 360, 360, 362, 363, 364, 364, 365, 366, 367, 367, 368, 368, 369, 370, 370, 370, 370, 371, 371, 371, 372, 373, 373, 374, 375, 377, 377, 378, 380, 381, 381, 382, 383, 383, 385, 385, 386, 386, 387, 387, 390, 391, 393, 393, 396, 396, 397, 398, 401, 402, 402, 402, 404, 404, 404, 408, 409, 409, 412, 412, 414, 414, 414, 415, 417, 418, 419, 423, 424, 426, 429, 429, 431, 432, 432, 433, 433, 435, 436, 441, 442, 443, 443, 449, 449, 450, 450, 451, 455, 457, 457, 459, 460, 460, 461, 461, 463, 464, 464, 465, 465, 465, 468, 468, 470, 472, 473, 474, 474, 476, 476, 477, 478, 479, 480, 480, 481, 482, 482, 482, 484, 485, 485, 486, 486, 488, 488, 489, 491, 492, 492, 494, 494, 495, 497, 497, 500, 500, 501, 502, 503, 504, 504, 504, 504, 505, 505, 507, 507, 508, 509, 513, 513, 514, 517, 518, 518, 520, 520, 522, 522, 522, 523, 523, 524, 525, 526, 529, 531, 531, 531, 532, 532, 533, 534, 534, 535, 535, 537, 537, 537, 537, 539, 539, 543, 544, 544, 544, 545, 547, 549, 549, 551, 551, 551, 553, 553, 554, 554, 555, 555, 557, 557, 559, 559, 561, 561, 562, 563, 567, 568, 569, 571, 571, 571, 571, 573, 574, 574, 575, 576, 576, 578, 578, 578, 579, 579, 580, 580, 582, 582, 583, 588, 588, 588, 589, 592, 593, 593, 594, 595, 595, 596, 596, 596, 597, 598, 598, 598, 602, 603, 604, 604, 605, 605, 606, 608, 610, 611, 615, 616, 616, 617, 617, 618, 619, 619, 619, 622, 622, 623, 623, 624, 626, 626, 626, 626, 626, 627, 628, 630, 632, 632, 634, 634, 635, 636, 638, 638, 639, 640, 644, 646, 646, 652, 653, 654, 654, 656, 657, 658, 658, 658, 659, 659, 660, 660, 661, 663, 664, 665, 666, 667, 667, 668, 668, 668, 669, 671, 672, 673, 675, 676, 676, 678, 679, 680, 680, 681, 681, 681, 682, 683, 683, 684, 685, 687, 688, 689, 692, 693, 693, 694, 695, 695, 698, 698, 698, 699, 699, 700, 701, 703, 706, 706, 707, 711, 712, 713, 714, 716, 718, 723, 723, 724, 724, 726, 726, 727, 727, 728, 728, 730, 730, 734, 734, 737, 740, 742, 745, 745, 745, 746, 747, 749, 749, 750, 751, 751, 752, 753, 753, 754, 754, 755, 755, 757, 760, 763, 763, 763, 767, 770, 773, 773, 773, 774, 774, 775, 776, 778, 779, 781, 781, 782, 782, 782, 783, 786, 788, 788, 789, 790, 795, 797, 797, 798, 799, 801, 802, 803, 804, 804, 805, 808, 812, 813, 814, 818, 819, 820, 820, 821, 822, 822, 823, 827, 827, 827, 828, 828, 828, 828, 831, 833, 835, 835, 835, 835, 835, 835, 837, 838, 841, 841, 841, 846, 847, 847, 848, 850, 851, 854, 857, 857, 860, 865, 865, 865, 866, 869, 870, 871, 872, 872, 874, 878, 879, 880, 881, 881, 882, 883, 884, 885, 885, 885, 886, 889, 890, 890, 892, 893, 893, 895, 895, 896, 897, 898, 898, 899, 900, 901, 902, 902, 902, 904, 904, 904, 905, 905, 908, 909, 909, 910, 910, 911, 911, 911, 911, 912, 913, 913, 915, 916, 917, 918, 918, 919, 919, 920, 920, 920, 921, 922, 924, 925, 925, 927, 927, 928, 928, 928, 929, 929, 931, 933, 933, 933, 933, 937, 939, 939, 940, 940, 942, 942, 943, 943, 946, 947, 948, 948, 949, 951, 951, 953, 954, 954, 957, 957, 957, 958, 958, 958, 958, 961, 962, 962, 962, 963, 964, 965, 966, 967, 968, 968, 969, 971, 971, 974, 976, 977, 977, 979, 982, 983, 984, 984, 985, 986, 987, 987, 987, 989, 990, 992, 994, 995, 995, 996, 996, 996, 996, 997, 998, 998, 999, 999]
 
-	    Sorting the array had the running time of 423879 ns;
+	    With a nested for loop, the running time for a predefined array was 8876837 ns.
 
-	    With a binary search after a sorted array, the running time was 227300 ns.
+	    Sorting the array had the running time of 501701 ns;
 
-	    With a custom search after a sorted array, the running time was 2622656 ns.
+	    With a binary search after a sorted array, the running time was 109931 ns.
 
-	    Binary search + sorting time = 227300 + 423879 = 651179 ns
+	    With a custom search after a sorted array, the running time was 141854 ns.
 
-	    Custom search + sorting time = 2622656 + 423879 = 3046535 ns
+	    Binary search + sorting time = 109931 + 501701 = 611632 ns
+
+	    Custom search + sorting time = 141854 + 501701 = 643555 ns
 
 	    Nested for loop vs Binary search + sort
-	        9658432 - 651179 = 9007253 ns, this concludes that binary search was 9007253 ns faster than the nested for loop.
+	        8876837 - 611632 = 8265205 ns, this concludes that binary search was 8265205 ns faster than the nested for loop.
 
 	    Nested for loop vs Custom search + sort
-	    	9658432 - 3046535 = 6611897 ns, this concludes that binary search was 6611897 ns faster than the nested for loop.
+	    	8876837 - 643555 = 8233282 ns, this concludes that binary search was 8233282 ns faster than the nested for loop.
 
         Custom search + sort vs Binary search + sort
-            3046535 - 651179 = 2395356 ns, this concludes that binary search was 2395356 ns faster than the custom search.
+            8265205 - 8233282 = 31923 ns, this concludes that binary search was 31923 ns faster than the custom search.
 
 
     Be aware, these numbers reflect upon great uncertainty, first of all - I only ran the tests 1 time.

@@ -30,12 +30,12 @@ public class ExerciseB {
     public int[] makeTestArray(int[] myArray){
 
         if(myArray == null) {
-            this.myIntArray = new int[10];
+            this.myIntArray = new int[9];
 
             System.out.println();
             System.out.print("** Using a predefined array with values: ");
             myArray = new int[] {1, 0, 3, 9, 3, 5, 0, 7, 8};
-            //myArray = new int[] {0, 0, 0, 0, 1, 2, 4, 8, 8, 9}; - k = 3!!
+            //myArray = new int[] {0, 0, 0, 0, 1, 2, 4, 8, 8, 9};
             System.out.print(Arrays.toString(myArray));
         } else {
             this.myIntArray = new int[myArray.length];
@@ -59,7 +59,7 @@ public class ExerciseB {
 
         System.out.println("[Custom Search] We are looking for a pair that gives out the sum: " + k);
 
-        while(start < end && start < k){
+        while(start < end){
             int toFind = k - this.myIntArray[start];
             boolean found = false;
             while(start < end && !found && this.myIntArray[end]>= toFind){

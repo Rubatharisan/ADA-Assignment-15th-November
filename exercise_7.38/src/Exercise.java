@@ -11,17 +11,16 @@ public class Exercise {
 
         Exercise exercise = new Exercise();
 
-        //exercise.generatePoints(1000, 100);
+        //exercise.generatePoints(1000, 50);
 
+        // Our test points
         exercise.testPoints();
 
+        // Get our points.
         Point[] myPoints = exercise.getPoints();
 
-        List<PointAngle<Float, Point>> tuples = new ArrayList<PointAngle<Float, Point>>();
-        // insert elements in no special order
-        //tuples.add(new PointAngle<>(new Float(17.23), new Point(2,3)));
-        //tuples.add(new PointAngle<>(new Float(14.21), new Point(4,2)));
 
+        // Create an comparator which will compare the angle every time it gets inserted into the list.
         Comparator<PointAngle<Float, Point>> comparator = new Comparator<PointAngle<Float, Point>>(){
 
             public int compare(PointAngle<Float, Point> AngleA,
@@ -32,106 +31,88 @@ public class Exercise {
 
         };
 
-
+        // A outer loop to break out when we have a group of 3 or more.
+        outerloop:
+        // loop our points
         for(int p = 0; p < exercise.getPoints().length; p++){
+            // Create a list called tuples.
+            List<PointAngle<Float, Point>> tuples = new ArrayList<PointAngle<Float, Point>>();
 
+            // loop our points
             for(int q = 0; q < exercise.getPoints().length; q++){
+
+                // if p = q, then skip
                 if(p != q){
-                    //myPoints[q].printData();
-                    //System.out.println(myPoints[p].getAngle(myPoints[q]).getClass().getName());
+
+                    // add the angle of the points into the list.
                     tuples.add(new PointAngle(myPoints[p].getAngle(myPoints[q]), myPoints[q]));
-                    //System.out.println(myPoints[0].getAngle(myPoints[p]));
-                    //myAngels[p] = myPoints[0].getAngle(myPoints[p]);
+
                 }
             }
 
+            // Sort the angles of all points related to P.
             Collections.sort(tuples, comparator);
 
+            // Count occurrences of an identical angle
             int counter = 1;
+
+            // Get the first point
             PointAngle current = tuples.get(0);
 
+            // Loop the list.
             for(int i = 1; i < tuples.size(); i++){
-                //System.out.println(tuples.get(i).getAngle() + " == " + current.getAngle() );
-                //System.out.println(tuples.get(i).getAngle().getClass().getName() + " == " + current.getAngle().getClass().getName());
-                //System.out.println(tuples.get(i).getAngle().getClass() == current.getAngle().getClass());
 
+                // I don't know why, but I had to create this, for it to work with the if statement below.
                 Float myFloat = (Float) current.getAngle();
+
+                // Compare an angle (in a sorted list), with another angle - in the sorted list.
                 if(tuples.get(i).getAngle().compareTo(myFloat)!=0){
                     // new element found, check for previous solution
                     if(counter>=3){
+                        //System.out.println(tuples.get(i-1).getAngle());
+                        // Current angle is not equal with the previous one, lets output if counter is eq/above 3.
                         outputSolution(myPoints[p], tuples, i-1, counter);
-                        //output solution
-                        // exit somehow
-                        break;
+                        break outerloop;
                     } else {
+                        // Reset counter, and get a new point.
                         counter = 1;
                         current = tuples.get(i);
                     }
                 } else {
-                    // they are equal
+                    // they are equal, let's increase the counter.
                     counter++;
                 }
+
+                // If we hit the last angle in the list, then outputSolution, if the last 3 occurrences is the same.
                 if(i == tuples.size()-1){
                     // i is last in the array
                     if(counter>=3){
                         outputSolution(myPoints[p], tuples, i, counter);
-                        //output solution
-                        // exit somehow
-                        break;
+                        break outerloop;
                     }
                 }
-
-
-//                if(tuples.get(i).getAngle().compareTo(myFloat)==0){
-//                    counter++;
-//
-//
-//
-//                } else {
-//
-//                    if(counter == 3){
-//                        System.out.println("Found 3 colinear points");
-//                        //System.out.println(tuples.get(i-3).getPoint());
-//                        tuples.get(i-2).getPoint().printData();
-//                        tuples.get(i-1).getPoint().printData();
-//
-//                    }
-//
-//                    counter = 1;
-//                    current = tuples.get(i);
-//                }
-
-
             }
 
-            break;
-
-
-            /* System.out.println(tuples.get(0).getAngle());
-            System.out.println(tuples.get(1).getAngle());
-            System.out.println(tuples.get(2).getAngle()); */
 
         }
 
-        // Arrays.sort(myAngels);
-
-        /* for(int i = 0; i < 100; i++){
-            System.out.println(myAngels[i]);
-        } */
     }
 
+    // Output our solution, if any found.
     public static void outputSolution(Point p, List<PointAngle<Float, Point>> tuples, int i, int counter){
-        System.out.println("===");
+        System.out.print("P=  ");
         p.printData();
         System.out.println("===");
 
         for(int j=0; j < counter; j++) {
-            System.out.println("-");
-            System.out.println(tuples.get(i - j).getAngle());
+            int m = j;
+            System.out.print("Q" + (m+1) + "= ");
+            //System.out.print(tuples.get(i - j).getAngle());
             tuples.get(i - j).getPoint().printData();
         }
     }
 
+    // Generate some random points - for testing purposes with larger sets.
     public void generatePoints(int amount, int maxXandY){
         SecureRandom randomX = new SecureRandom();
         SecureRandom randomY = new SecureRandom();
@@ -145,6 +126,7 @@ public class Exercise {
 
     }
 
+    // My testing points.
     public void testPoints(){
         points = new Point[9];
 
