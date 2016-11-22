@@ -1,53 +1,66 @@
 7.53 We are given an array that contains N numbers. We want to determine if there are two numbers whose sum equals a given number K. For instance, if the input is 8, 4, 1, 6 and K is 10, then the answer is yes (4 and 6). A number may be used twice.
 
 a. Give an O(N^2) algorithm to solve this problem.
-    A nested for loop should suffice. - Commonly known as the "Brute force" method.
+    A nested for loop should suffice.
 
     ###
     # Console output
     ##
 
-    Our array of random numbers:
-    [14, 17, 6, 3, 18, 5, 6, 1, 13, 16]
-    We are looking for a pair that gives out the sum: 4
-    Pair found: 3 + 1 = 4
-    Pair found: 1 + 3 = 4
+     ** Using a predefined array with values: [1, 0, 3, 9, 3, 5, 0, 7, 8]
+     Initial array: [1, 0, 3, 9, 3, 5, 0, 7, 8]
+
+     [Nested for-loop] We are looking for a pair that gives out the sum: 7
+     Pair found: 0 + 7 = 7
+     Pair found: 0 + 7 = 7
+     [Time] Execution took: 125666ns (0ms)
+
+     ** Using a random values filled array: [4, 14, 14, 16, 7, 15, 14, 0, 7, 6]
+     Initial array: [4, 14, 14, 16, 7, 15, 14, 0, 7, 6]
+
+     [Nested for-loop] We are looking for a pair that gives out the sum: 7
+     Pair found: 7 + 0 = 7
+     Pair found: 0 + 7 = 7
+     [Time] Execution took: 86183ns (0ms)
+
 
 b. Give an O(N log N) algorithm to solve this problem. (Hint: sort the items first. After that is done, you can solve the problem in linear time). 
 
-    Let's say we have an sorted array with following numbers A:=[1, 3, 4, 6, 7, 10]
-    Now lets say our K will be 10, so with A[0] = 1, the complementary has to be K-A[0] = 9, so we should look for the element     containing the value 9. It doesn't exist. So lets try with A[1] = 3, K-A[1] = 7, which exists at A[4]. Now if we sum up       A[1] + A[4] = 10 = K.
+    We will first sort the array with java's sort algorithm, hereafter compare array[start] with array[end].
 
-    Conclusion, start out with a heap sort, then next a binary search.
-
-    BinarySearch(start, mid, end, complementaryInteger){
-        if(myArray[start] == complementaryInteger){
-            return myArray[start];
-        }
-
-        if(myArray[end] == complementaryInteger){
-            return myArray[end];
-        }
-
-        if(myArray[mid] == complementaryInteger){
-            return myArray[mid];
-        }
+    { We will decrement array[end] every time that the complementary of array[start] is not found, when hit is found }
 
 
-        if(myArray[start] > complementaryInteger){
-            return false;
-        }
+    ###
+    # Console output
+    ##
 
-        if(myArray[end] < complementaryInteger){
-            return false;
-        }
+    ** Using a predefined array with values: [1, 0, 3, 9, 3, 5, 0, 7, 8]
+    Initial array: [1, 0, 3, 9, 3, 5, 0, 7, 8, 0]
+    Sorted array: [0, 0, 0, 1, 3, 3, 5, 7, 8, 9]
 
-        if(myArray[mid] > complementaryInteger){
-            BinarySearch(start, floor(mid/2), mid-1, complementaryInteger);
-        }
+    [Binary Search] We are looking for a pair that gives out the sum: 7
+    Pair found: 0 + 7 = 7
+    Pair found: 0 + 7 = 7
+    Pair found: 0 + 7 = 7
+    [Time] Execution took: 542715ns (0ms)
 
-        if(myArray[mid] < complementary){
-            BinarySearch(mid+1, ceil(mid*2), end, complementaryInteger);
-        }
-    },
+    [Custom Search] We are looking for a pair that gives out the sum: 7
+    Pair found: 0 + 7 = 7
+    Pair found: 0 + 7 = 7
+    Pair found: 0 + 7 = 7
+    [Time] Execution took: 113821ns (0ms)
+
+    ** Using a random filled array with values:
+
+    Initial array: [4, 14, 14, 16, 7, 15, 14, 0, 7, 6]
+    Sorted array: [0, 4, 6, 7, 7, 14, 14, 14, 15, 16]
+
+    [Binary Search] We are looking for a pair that gives out the sum: 7
+    Pair found: 0 + 7 = 7
+    [Time] Execution took: 81693ns (0ms)
+
+    [Custom Search] We are looking for a pair that gives out the sum: 7
+    Pair found: 0 + 7 = 7
+    [Time] Execution took: 58170ns (0ms)
 

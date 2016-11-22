@@ -8,15 +8,9 @@ import java.util.Arrays;
 public class ExerciseB {
 
     static int myIntArray[];
-    static int runs = 0;
-    static int startIndex = 0;
-    static int k;
 
-    public void setArray(int[] array) {
-        this.myIntArray = array;
-    }
-
-    private int[] makeIntArray(int size, int max){
+    // Create an array with random integers
+    public int[] makeIntArray(int size, int max){
         SecureRandom random = new SecureRandom();
         this.myIntArray = new int[size];
 
@@ -24,98 +18,118 @@ public class ExerciseB {
             this.myIntArray[i] = random.nextInt(max);
         }
 
+        System.out.println();
+        System.out.print("** Using a random values filled array: ");
+        System.out.print(Arrays.toString(myIntArray));
+
         return this.myIntArray;
 
     }
 
-    public void findSum(int i) {
-        k = i;
-        if(this.myIntArray[startIndex] > i){
-            System.out.println("Sorry the least element in the array, is higher than the summation");
+    // Make an test array with specified inputs - great for testing
+    public int[] makeTestArray(int[] myArray){
+
+        if(myArray == null) {
+            this.myIntArray = new int[10];
+
+            System.out.println();
+            System.out.print("** Using a predefined array with values: ");
+            myArray = new int[] {1, 0, 3, 9, 3, 5, 0, 7, 8};
+            //myArray = new int[] {0, 0, 0, 0, 1, 2, 4, 8, 8, 9}; - k = 3!!
+            System.out.print(Arrays.toString(myArray));
         } else {
-            int complementary = i - this.myIntArray[startIndex];
-            //System.out.println("We choose startIndex as : " + startIndex + " with value " + this.array[startIndex] + ". Lets search for: " + complementary);
-            binarySearch(0, (int) Math.floor(this.myIntArray.length/2), this.myIntArray.length-1, complementary);
+            this.myIntArray = new int[myArray.length];
         }
 
-    }
-
-    private void findSum(){
-        startIndex++;
-        //System.out.println("We are looking for the sum " + k);
-        if(this.myIntArray[startIndex] > k){
-            System.out.println("Sorry the least element in the array, is higher than the summation");
-        } else {
-            int complementary = k - this.myIntArray[startIndex];
-            int mid = (int) Math.floor((startIndex+(this.myIntArray.length-1))/2);
-            System.out.println("We choose startIndex as : " + startIndex + " with value " + this.myIntArray[startIndex] + ". Lets search for: " + complementary);
-            binarySearch(startIndex, mid, this.myIntArray.length-1, complementary);
+        for(int i = 0; i < myArray.length; i++){
+            this.myIntArray[i] = myArray[i];
         }
+
+        return this.myIntArray;
     }
 
 
-    private void binarySearch(int start, int mid, int end, int complementaryInteger){
-        this.runs++;
 
-        boolean foundComplementary = false;
-        boolean possible = true;
-        System.out.println("* RUN " + this.runs + " ------------------------------------------------");
-        System.out.println();
-        System.out.println("-- K = " + this.k + ", ");
-        System.out.println("-- C = K - array[i] => C = " + this.k + " - " + (myIntArray[startIndex]) + " = " + (this.k-myIntArray[startIndex]));
-        System.out.println("-- Start index: " + start + " with value: " +  this.myIntArray[start]);
-        System.out.println("-- Mid index: " + mid + " with value: " +  this.myIntArray[mid]);
-        System.out.println("-- End index: " + end + " with value: " +  this.myIntArray[end]);
-        System.out.println("-- Searching for C:  " + complementaryInteger);
-        //printArray(start, mid, end);
-        System.out.println("---------------------------------------------------------");
 
-        if(this.myIntArray[start] == complementaryInteger){
-            System.out.println("Found complementary at index: " + start);
-            foundComplementary = true;
+    public void findSum(int k) {
+
+        int start = 0;
+        int end = this.myIntArray.length -1;
+        boolean foundSum = false;
+
+        System.out.println("[Custom Search] We are looking for a pair that gives out the sum: " + k);
+
+        while(start < end && start < k){
+            int toFind = k - this.myIntArray[start];
+            boolean found = false;
+            while(start < end && !found && this.myIntArray[end]>= toFind){
+                if(this.myIntArray[end] == toFind){
+                    found = true;
+                    foundSum = true;
+                    System.out.println("Pair found: " + this.myIntArray[start] + " + " + this.myIntArray[end] + " = " + k);
+                } else {
+                    end--;
+                }
+            }
+            start++;
         }
 
-        if(this.myIntArray[end] == complementaryInteger){
-            System.out.println("Found complementary at index: " + end);
-            foundComplementary = true;
+        if(!foundSum){
+            System.out.println("Sorry, no pairs were found in the given array.");
         }
+    }
 
-        if(this.myIntArray[mid] == complementaryInteger){
-            System.out.println("Found complementary at index: " + mid);
-            foundComplementary = true;
-        }
+    public void findSumBS(int k) {
+
+        int end = this.myIntArray.length -1;
+        boolean foundSum = false;
 
 
-        if(this.myIntArray[start] > complementaryInteger){
-            possible = false;
+        System.out.println("[Binary Search] We are looking for a pair that gives out the sum: " + k);
 
-        }
+        for(int i = 0; i < this.myIntArray.length; i++){
 
-        if(this.myIntArray[end] < complementaryInteger){
-            possible = false;
-        }
+            int toFind = k - this.myIntArray[i];
 
-        if(start > end){
-            possible = false;
-        }
-
-        if(foundComplementary == false && possible) {
-            if (this.myIntArray[mid] > complementaryInteger) {
-                binarySearch(start, (int) Math.floor((mid+start)/2), mid - 1, complementaryInteger);
+            if(toFind < 0){
+                break;
             }
 
-            if (this.myIntArray[mid] < complementaryInteger) {
-                binarySearch(mid + 1, (int) Math.floor((mid+end)/2), end, complementaryInteger);
+            int start = i;
+
+            while(start <= end){
+                int mid = (int) Math.floor((start+end)/2);
+
+
+                if(this.myIntArray[mid] == toFind){
+//                    System.out.println(this.myIntArray[i]);
+//                    System.out.println(k - this.myIntArray[i]);
+//                    System.out.println(start);
+//                    System.out.println(toFind);
+                    System.out.println("Pair found: " + this.myIntArray[i] + " + " + this.myIntArray[mid] + " = " + k);
+                    foundSum = true;
+                    break;
+                }
+
+                if(this.myIntArray[mid] < toFind){
+                    start = mid + 1;
+                }
+
+                if(this.myIntArray[mid] > toFind){
+                    end = mid - 1;
+                }
+
+            }
+
+            if(foundSum){
+                //break;
             }
         }
 
-        if(!possible){
-            System.out.println("Sorry the element '" + complementaryInteger +  "' does not exist in our sub array.");
-            findSum();
+
+        if(!foundSum){
+            System.out.println("Sorry, no pairs were found in the given array.");
         }
-
-
-
     }
 
 
@@ -128,38 +142,12 @@ public class ExerciseB {
         Arrays.sort(this.myIntArray);
     }
 
-    public void printArray(int start, int mid, int end){
-        String indexNumbers = "";
-        String theValues = "";
-        String seperatorTop = "------";
-        for(int i = start; i < end + 1; i++){
-            indexNumbers = indexNumbers + i + " | ";
-            theValues = theValues + myIntArray[i] + " | ";
-            seperatorTop = seperatorTop + "-";
-        }
-        System.out.println(seperatorTop);
-        System.out.print("index | ");
-        System.out.println(indexNumbers);
-        System.out.print("value | ");
-        System.out.println(theValues);
-        System.out.println(seperatorTop);
+    public void printText(){
+        System.out.println("###");
+        System.out.println("# B) Give an O(N log N) algorithm to solve the problem");
+        System.out.println("# (Hint: first sort it, then linear time to find the sum)");
+        System.out.println("##");
 
-
-        System.out.println();
-    }
-
-    public static void main(String[] args) {
-
-        ExerciseB exercise = new ExerciseB();
-        SecureRandom number = new SecureRandom();
-        exercise.makeIntArray(25, 100);
-        System.out.println();
-        System.out.println("Initial random array: " + exercise.getArray());
-        exercise.javaSort();
-        System.out.println("Sorted array: " + exercise.getArray());
-        System.out.println();
-
-        exercise.findSum(number.nextInt(100));
     }
 
 }

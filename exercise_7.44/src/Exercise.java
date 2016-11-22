@@ -14,7 +14,6 @@ public class Exercise {
         // Create an instance of our exercise class
         Exercise myBooleanArray = new Exercise();
 
-
         // Create a random boolean array with elements: true and false.
         myBooleanArray.makeBooleanArray(10);
 

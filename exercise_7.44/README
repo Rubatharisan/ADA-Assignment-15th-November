@@ -2,17 +2,17 @@
 Give an O(N) algorithm to rearrange the list so that all false elements precede the true elements.
 You may use only constant extra space.
 
-We will be using the Counting sort algorithm to solve our problem. We run through the array to count all the false elements.
-Hereafter, we define new elements with false and true.
+    We run through the array to count all the false elements.
+    Hereafter, we define new elements with the amount of false elements, and the rest as true.
 
-Our results:
+    Our results:
 
-###
-# Our newly created boolean array
-##
-=> [true, true, true, false, false, false, false, false, true, false]
+    ###
+    # Our newly created boolean array
+    ##
+    => [true, true, true, false, false, false, false, false, true, false]
 
-###
-# Our sorted boolean array
-##
-=> [false, false, false, false, false, false, true, true, true, true]
+    ###
+    # Our sorted boolean array
+    ##
+    => [false, false, false, false, false, false, true, true, true, true]
