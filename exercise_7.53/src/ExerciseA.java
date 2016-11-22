@@ -73,7 +73,7 @@ public class ExerciseA {
                         // Found a match - we could break the for loop - but we want to see the worst case.
                         System.out.println("Pair found: " + myIntArray[i] + " + " + myIntArray[k] + " = " + theSum);
                         breakOut = true;
-                        break;
+                        //break;
                     }
                 }
             }

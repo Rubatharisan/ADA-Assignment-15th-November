@@ -32,7 +32,7 @@ public class Tester {
         endTimer();
 
         // Make an an array with random numbers, p1 = size, p2 = max value of a integer in randomInt.
-        int[] myRandomArray = exercise.makeIntArray(10, 20);
+        int[] myRandomArray = exercise.makeIntArray(1000, 1000);
 
         // Let's print the array.
         System.out.println();
@@ -61,7 +61,10 @@ public class Tester {
 
         System.out.println();
         System.out.println("Initial array: " + exerciseB.getArray());
+        System.out.println("... sorting the array");
+        startTimer();
         exerciseB.javaSort();
+        endTimer();
         System.out.println("Sorted array: " + exerciseB.getArray());
         System.out.println();
 
@@ -85,7 +88,10 @@ public class Tester {
 
         System.out.println();
         System.out.println("Initial array: " + exerciseB.getArray());
+        System.out.println("... sorting the array");
+        startTimer();
         exerciseB.javaSort();
+        endTimer();
         System.out.println("Sorted array: " + exerciseB.getArray());
         System.out.println();
 
